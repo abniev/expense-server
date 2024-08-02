@@ -6,19 +6,21 @@ export default async function isAuth(req, res, next) {
       return res
         .status(401)
         .json({ message: "No token was provided in headers" });
-
-      const token = req.headers.authorization.split("")[1];
-
-      if (!token) {
-        return res
-          .status(401)
-          .json({ message: "No token was provided (after Bearer)" });
-      }
-      const verified = jwt.verify(token, process.env.TOKEN_SIGN_SECRET);
-      req.user = verified.payload;
-
-      next();
     }
+
+    const token = req.headers.authorization.split("")[1];
+
+    if (!token) {
+      return res
+        .status(401)
+        .json({ message: "No token was provided (after Bearer)" });
+    }
+
+    const verified = jwt.verify(token, process.env.TOKEN_SIGN_SECRET);
+
+    req.user = verified.payload;
+
+    next();
   } catch (error) {
     console.log(error);
 

@@ -4,6 +4,7 @@ import connectDB from "./config/mongoose.config.js";
 import * as dotenv from "dotenv";
 import categoryRouter from "./routes/categories.routes.js";
 import cors from "cors";
+// import routeRouter from "./routes/route.js"
 
 dotenv.config();
 
@@ -16,6 +17,7 @@ app.use(logger);
 app.use(cors({ origin: [process.env.REACT_APP_URI] }));
 
 app.use("/", categoryRouter);
+// app.use("/", routeRouter);
 
 app.listen(process.env.PORT, () => {
   console.clear();
